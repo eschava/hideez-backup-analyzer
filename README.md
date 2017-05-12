@@ -11,7 +11,7 @@ To check passwords from the backup file just enter password and select file from
 
 Backup file is analyzed in browser and neither password not backup file are not sent to the internet.
 
-Hosted version of the application is present [here](https://hack-hideez.github.io/hideez-backup-analyzer/index.htm)
+Hosted version of the application is present [here](https://eschava.github.io/hideez-backup-analyzer/index.htm)
 
 ## Русский
 
@@ -23,5 +23,5 @@ Hideez бекап анализатор это веб-приложение соз
 
 Бекап файл анализируется в браузере и ни пароли ни бекап файл не отправляются в интернет.
 
-Работающая версия приложения находится [здесь](https://hack-hideez.github.io/hideez-backup-analyzer/index.htm)
+Работающая версия приложения находится [здесь](https://eschava.github.io/hideez-backup-analyzer/index.htm)
 
