@@ -2,6 +2,7 @@
 <head>
     <script src="crypto-js.js"></script>
     <script src="nibbler.js"></script>
+    <script src="otpauth-3.1.3.min.js"></script>
     <script>
         var base32 = new Nibbler({dataBits: 8, codeBits: 5, keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567', pad: '='});
         var base64 = new Nibbler({dataBits: 8, codeBits: 6, keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/', pad: '='});
@@ -170,7 +171,11 @@ function handleFileSelect(evt) {
                 row.insertCell(3).innerHTML = record.webSite;
                 row.insertCell(4).innerHTML = record.login;
                 row.insertCell(5).innerHTML = record.password;
-                row.insertCell(6).innerHTML = record.otp;
+                row.insertCell(6).innerHTML = 'otp' in record
+                    ? record.otp +
+                        '<input type="button" value="Generate" onclick="generate(\'' + record.otp + '\', \'otp_' + record.account + '\')"/>' +
+                        '<span id="otp_' + record.account + '"/>'
+                    : '';
                 
                 for (var i = 0; i < row.cells.length; i++)
                 {
@@ -183,10 +188,20 @@ function handleFileSelect(evt) {
         };
       })(f);
 
-      reader.readAsBinaryString(f);
-  }
+    reader.readAsBinaryString(f);
+}
 
-  document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+function generate(otp, id) {
+    var totp = new OTPAuth.TOTP({
+            algorithm: 'SHA1',
+            digits: 6,
+            period: 30,
+            secret: OTPAuth.Secret.fromB32(otp.trim()),
+          });
+    document.getElementById(id).innerHTML = totp.generate();
+}
+
+document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 </script>
 
 </body>
